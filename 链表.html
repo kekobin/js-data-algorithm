@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+<script>
+//如果你发现数组在实际使用时很慢，就可以考虑使用链表来替代它。除了对数据的随机访问，链表几乎可以用在任何可以使用一维数组的情况中。如果需要随机访问，数组仍然是更好的选择。
+//链表是由一组节点组成的集合。每个节点都使用一个对象的引用指向它的后继。指向另一个节点的引用叫做链.链表的尾元素指向一个null 节点。
+//循环链表有待进一步理解?
+function Node(element) {
+	this.element = element;
+	this.next = null;
+}
+function LList() {
+	this.head = new Node("head");
+}
+
+LList.prototype = {
+	constructor: LList,
+	find: function(item) {
+		var currNode = this.head;
+		while (currNode.element != item) {
+			currNode = currNode.next;
+		}
+		return currNode;
+	},
+	insert: function(newElement, item) {
+		var newNode = new Node(newElement);
+		var current = this.find(item);
+		newNode.next = current.next;
+		current.next = newNode;
+	},
+	remove: function(item) {
+		var prevNode = this.findPrevious(item);
+		if (!(prevNode.next == null)) {
+			prevNode.next = prevNode.next.next;
+		}
+	},
+	display: function() {
+		var currNode = this.head;
+		while (!(currNode.next == null)) {
+			console.log(currNode.next.element);
+			currNode = currNode.next;
+		}
+	},
+	findPrevious: function(item) {
+		var currNode = this.head;
+		while (!(currNode.next == null) &&
+		(currNode.next.element != item)) {
+			currNode = currNode.next;
+		}
+		return currNode;
+	}
+}
+
+var cities = new LList();
+cities.insert("Conway", "head");
+cities.insert("Russellville", "Conway");
+cities.insert("Carlisle", "Russellville");
+cities.insert("Alma", "Carlisle");
+cities.display();
+cities.remove("Carlisle");
+cities.display();
+</script>
+</body>
+</html>

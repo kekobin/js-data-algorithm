@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+<script>
+//选择排序和插入排序要比冒泡排序快，插入排序是这三种算法中最快的。
+//冒泡
+function bubbleSort() {
+	var numElements = this.dataStore.length;
+	var temp;
+	for (var outer = numElmeents; outer >= 2; --outer) {
+		for (var inner = 0; inner <= outer - 1; ++inner) {
+			if (this.dataStore[inner] > this.dataStore[inner + 1]) {
+				swap(this.dataStore, inner, inner + 1);
+			}
+		}
+		print(this.toString());
+	}
+
+}
+
+//选择排序
+function swap(arr, t1, t2){
+    let temp = arr[t1];
+    arr[t1] = arr[t2];
+    arr[t2] = temp;
+}
+
+function selectSort(arr) {
+    var minIndex;
+    for(var i=0;i<arr.length;i++){
+        minIndex = i;
+        for(var j=i+1;j<arr.length; j++) {
+            if(arr[j] < arr[i]){
+                minIndex = j;
+            }
+            swap(arr, i, minIndex);
+        }
+    }
+}
+
+//插入排序
+function insertionSort() {
+	var temp, inner;
+	for (var outer = 1; outer <= this.dataStore.length - 1; ++outer) {
+		temp = this.dataStore[outer];
+		inner = outer;
+		while (inner > 0 && (this.dataStore[inner - 1] >= temp)) {
+			this.dataStore[inner] = this.dataStore[inner - 1];
+			--inner;
+		}
+		this.dataStore[inner] = temp;
+	}
+}
+//快速排序
+function quickSort(arr) {
+	if (arr.length == 0) {
+		return [];
+	}
+	var left = [];
+	var right = [];
+	var pivot = arr[0];
+	for (var i = 1; i < arr.length; i++) {
+		if (arr[i] < pivot) {
+			left.push(arr[i]);
+		} else {
+			right.push(arr[i]);
+		}
+	}
+	return quickSort(left).concat(pivot, quickSort(right));
+}
+</script>
+</body>
+</html>

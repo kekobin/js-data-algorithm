@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+<script>
+//散列是一种常用的数据存储技术，散列后的数据可以快速地插入或取用。散列使用的数据结构叫做散列表。在散列表上插入、删除和取用数据都非常快，但是对于查找操作来说却
+//效率低下，比如查找一组数据中的最大值和最小值。这些操作得求助于其他数据结构，二叉查找树就是一个很好的选择。
+//在 JavaScript 中对象是以 Hash 结构存储的，用 <Key, Value> 键值对表示对象的属性，Key 的数据类型为字符串，Value 的数据类型是结构体，即对象是以 <String, Object> 类型的 HashMap 结构存储的。
+function HashTable() {
+	this.table = new Array(137);
+	this.simpleHash = simpleHash;
+	this.showDistro = showDistro;
+	this.put = put;
+	//this.get = get;
+}
+
+function put(data) {
+	var pos = this.simpleHash(data);
+	this.table[pos] = data;
+}
+
+function simpleHash(data) {
+	var total = 0;
+	for (var i = 0; i < data.length; ++i) {
+		total += data.charCodeAt(i);
+	}
+	return total % this.table.length;
+}
+
+function showDistro() {
+	var n = 0;
+	for (var i = 0; i < this.table.length; ++i) {
+		if (this.table[i] != undefined) {
+			print(i + ": " + this.table[i]);
+		}
+	}
+}
+function print(msg){
+	console.log(msg)
+}
+var someNames = ["David", "Jennifer", "Donnie", "Raymond",
+	"Cynthia", "Mike", "Clayton", "Danny", "Jonathan"
+];
+var hTable = new HashTable();
+for (var i = 0; i < someNames.length; ++i) {
+	hTable.put(someNames[i]);
+}
+hTable.showDistro();
+</script>
+</body>
+</html>

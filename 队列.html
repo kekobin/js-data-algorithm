@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+<script>
+	//队列是一种列表，不同的是队列只能在队尾插入元素，在队首删除元素。队列用于存储按顺序排列的数据，先进先出，这点和栈不一样，在栈中，最后入栈的元素反而被优先处理。
+	//插入操作也叫做入队，删除操作也叫做出队.peek():该操作返回队头元素，但不把它从队列中删除。经常用队列模拟排队的人
+function Queue() {
+	this.dataStore = [];
+}
+
+Queue.prototype = {
+	constructor: Queue,
+	enqueue: function(element) {
+		this.dataStore.push(element);
+	},
+	dequeue: function() {
+		return this.dataStore.shift();
+	},
+	front: function() {
+		return this.dataStore[0];
+	},
+	back: function() {
+		return this.dataStore[this.dataStore.length-1];
+	},
+	toString: function() {
+		var retStr = "";
+		for (var i = 0; i < this.dataStore.length; ++i) {
+			retStr += this.dataStore[i] + "\n";
+		}
+		return retStr;
+	},
+	empty: function() {
+		return this.dataStore.length === 0
+	}
+}	
+
+//基数排序
+function distribute(nums, queues, n, digit) {
+	for (var i = 0; i < n; ++i) {
+		if (digit == 1) {
+			queues[nums[i] % 10].enqueue(nums[i]);
+		} else {
+			queues[Math.floor(nums[i] / 10)].enqueue(nums[i]);
+		}
+	}
+}
+function collect(queues, nums) {
+	var i = 0;
+	for (var digit = 0; digit < 10; ++digit) {
+		while (!queues[digit].empty()) {
+			nums[i++] = queues[digit].dequeue();
+		}
+	}
+}
+function dispArray(arr) {
+	print(arr);
+}
+// 主程序
+var queues = [];
+for (var i = 0; i < 10; ++i) {
+	queues[i] = new Queue();
+}
+var nums = [];
+for (var i = 0; i < 10; ++i) {
+	nums[i] = Math.floor(Math.floor(Math.random() * 101));
+}
+function print(msg) {
+	console.log(msg)
+}
+distribute(nums, queues, 10, 1);
+collect(queues, nums);
+distribute(nums, queues, 10, 10);
+collect(queues, nums);
+</script>
+</body>
+</html>
