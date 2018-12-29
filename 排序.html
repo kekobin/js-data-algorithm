@@ -45,16 +45,16 @@ function selectSort(arr) {
 }
 
 //插入排序
-function insertionSort() {
+function insertionSort(nums) {
 	var temp, inner;
-	for (var outer = 1; outer <= this.dataStore.length - 1; ++outer) {
-		temp = this.dataStore[outer];
+	for (var outer = 1; outer <= nums.length - 1; ++outer) {
+		temp = nums[outer];
 		inner = outer;
-		while (inner > 0 && (this.dataStore[inner - 1] >= temp)) {
-			this.dataStore[inner] = this.dataStore[inner - 1];
+		while (inner > 0 && (nums[inner - 1] >= temp)) {
+			nums[inner] = nums[inner - 1];
 			--inner;
 		}
-		this.dataStore[inner] = temp;
+		nums[inner] = temp;
 	}
 }
 //快速排序
@@ -73,6 +73,40 @@ function quickSort(arr) {
 		}
 	}
 	return quickSort(left).concat(pivot, quickSort(right));
+}
+
+//二分法
+function binSearch(arr, data) {
+	var upperBound = arr.length - 1;
+	var lowerBound = 0;
+	while (lowerBound <= upperBound) {
+		var mid = Math.floor((upperBound + lowerBound) / 2);
+		if (arr[mid] < data) {
+			lowerBound = mid + 1;
+		} else if (arr[mid] > data) {
+			upperBound = mid - 1;
+		} else {
+			return mid;
+		}
+	}
+	return -1;
+}
+function print(msg){
+	console.log(msg)
+}
+var nums = [];
+for (var i = 0; i < 100; ++i) {
+	nums[i] = Math.floor(Math.random() * 101);
+}
+insertionSort(nums);
+print(nums);
+print();
+print(" 输入一个要查找的值：");
+var retVal = binSearch(nums, 66);
+if (retVal >= 0) {
+	print(" 已找到66，所在位置为：" + retVal);
+} else {
+	print("66 没有出现在这个数组中。");
 }
 </script>
 </body>
